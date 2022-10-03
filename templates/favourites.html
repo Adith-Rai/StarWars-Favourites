@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta httpequiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <title>Favourites</title>
+</head>
+
+<br><br><br><br>
+
+{% if user.is_authenticated %}
+    <h2>{{user.username}}</h2>
+    <div class="button-group">
+        <a class="logout-button" href="{% url 'logout' %}"><span>LOGOUT</span></a>
+    </div>
+{% else %}
+    <div class="button-group">
+        <a class="login-button" href="{% url 'login' %}"><span>LOGIN</span></a>
+        <a class="register-button" href="{% url 'register' %}"><span>REGISTER</span></a>
+    </div>
+{% endif %}
+
+<h1>{{user.username}} Favourites</h1>
+
+<body bgcolor="gray">
+
+    <div class="inline">
+        <a class="logout-button" href="{% url 'home' %}"><span>HOME</span></a>
+        <a class="planets-button" href="{% url 'planets' %}"><span>PLANETS</span></a>
+        <a class="films-button" href="{% url 'films' %}"><span>FILMS</span></a>
+    </div>
+    
+    <form action="/favourites/search/" method="post">
+        <div class="inline">
+            {% csrf_token %}
+            <label for="searchQuery">Search: </label>
+            <input type="text" name="searchQuery">
+            <input type="submit" value="SEARCH" name="search">
+        </div>
+    </form>
+    
+    {% for message in messages %}
+        <h3> {{message}} </h3>
+    {% endfor %}
+    
+    <ul class="enumerate">
+    {% for favourite in resources %}
+        <li>
+            <div class="favourites-items">
+                {% if favourite.type == "FILM"%}
+                    <form id = "{{favourite.resource}}" action="/films/film/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="film_url" value="{{favourite.url}}">
+                        <input type="hidden" name="film_favourite" value="True"> 
+                        <a href="#" onclick="document.forms['{{favourite.resource}}'].submit();" >{{favourite.name}}</a>
+                        <br>            
+                        <span style="font-size: 10px;">{{favourite.type}}</span>
+                        <br>
+                        <span style="font-size: 10px;">{{favourite.resource}}</span>                             
+                    </form>
+                {% else %}                
+                    <form id = "{{favourite.resource}}" action="/planets/planet/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="planet_url" value="{{favourite.url}}">
+                        <input type="hidden" name="planet_favourite" value="True"> 
+                        <a href="#" onclick="document.forms['{{favourite.resource}}'].submit();" >{{favourite.name}}</a>
+                        <br>            
+                        <span style="font-size: 10px;">{{favourite.type}}</span>
+                        <br>
+                        <span style="font-size: 10px;">{{favourite.resource}}</span>
+                    </form>   
+                {% endif %}                          
+            </div>
+            <div class="login-button">
+                <form id = "{{favourite.url}}" action="/favourites-rename/" method="post">
+                
+                    {% csrf_token %}
+                    <input type="hidden" name="favourite_name" value="{{favourite.name}}">
+                    <input type="hidden" name="resource_url" value="{{favourite.url}}">
+                    <input type="hidden" name="resource_type" value="{{favourite.type}}">
+                       
+                    <a href="#" onclick="document.forms['{{favourite.url}}'].submit();" >Rename</a> 
+                </form>
+            </div>
+            <div class="logout-button">
+                <form id = "{{favourite.name}}" action="/favourites-deleting/" method="post">
+                
+                    {% csrf_token %}
+                    <input type="hidden" name="favourite_name" value="{{favourite.name}}">
+                    <input type="hidden" name="resource_url" value="{{favourite.url}}">
+                    <input type="hidden" name="resource_type" value="{{favourite.type}}">
+                       
+                    <a href="#" onclick="document.forms['{{favourite.name}}'].submit();" >Delete</a> 
+                </form>
+            </div>
+            <br>
+            <br>
+        </li>
+    {% endfor %}
+    </ul>
+    
+</body>
+    
+    
+</html>
+

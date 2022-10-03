@@ -1,0 +1,155 @@
+h1 {
+ text-align:center
+}
+h3 {
+ text-align:center
+ color:#FF0000;
+}
+h2 {
+ vertical-align: top;
+ text-align: left;
+ margin-top: 21px;
+ margin-left: 2px;
+ position:absolute;
+ top:10px;
+ left:10px;
+}
+.inline {
+	 display: inline-block;
+	 padding: 10px 18px; 
+}
+.hide{
+  display:none;
+}
+.show{
+  display:block;
+}
+.enumerate{
+    font-size: 15px;
+    color: #e6e6e6;
+}
+
+.container-inline {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group {
+	 display: inline-block;
+     margin-top: 17px;
+     margin-right: 2px;
+     position:absolute;
+     top:10px;
+     right:10px;
+}
+.login-button {
+    background: #008CBA;
+}
+.logout-button {
+    background: #F44336;
+}
+.register-button {
+    background: #4CAF50;
+}
+.planets-button {
+    background: #9966ff;
+}
+.films-button {
+    background: #3b3c3b;
+}
+.favourites-button {
+    background: #ffcc00;
+}
+
+.films-items {
+    background: #3b3c3b;
+    width:445px; 
+    max-width:445px;
+    border: none;
+    display: inline-block;
+    border-radius: 6px; 
+    padding: 10px 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+.favourites-items {
+   background-color: #ffcc00;
+   width:445px; 
+   max-width:445px;
+   border: none;
+   display: inline-block;
+   border-radius: 6px; 
+   padding: 10px 18px;
+   font-weight: 700;
+   letter-spacing: 1px;
+   -moz-transition: all 0.2s;
+   -webkit-transition: all 0.2s;
+   transition: all 0.2s;
+}
+.planets-items {
+    background: #9966ff;
+    width:445px; 
+    max-width:445px;
+    border: none;
+    display: inline-block;
+    border-radius: 6px; 
+    padding: 10px 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}   
+
+
+
+
+.favourites-items:hover {
+    filter: brightness(85%);
+}
+.films-items:hover {
+    filter: brightness(85%);
+}
+.planets-items:hover {
+    filter: brightness(85%);
+}
+
+.planets-button,
+.films-button,
+.favourites-button,
+.login-button,
+.logout-button,
+.register-button {
+    color: #e6e6e6; 
+    border: none;
+    display: inline-block;
+    border-radius: 6px; 
+    padding: 10px 18px; 
+    font-weight: 700;
+    letter-spacing: 1px;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.login-button:hover {
+    filter: brightness(85%);
+}
+.logout-button:hover {
+    filter: brightness(85%);
+}
+.register-button:hover {
+    filter: brightness(85%);
+}
+.planets-button:hover {
+    filter: brightness(85%);
+}
+.films-button:hover {
+    filter: brightness(85%);
+}
+.favourites-button:hover {
+    filter: brightness(85%);
+}

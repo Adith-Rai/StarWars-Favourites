@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta httpequiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <title>STAR WARS PLANET</title>
+</head>
+
+<br><br><br><br>
+
+{% if user.is_authenticated %}
+    <h2>{{user.username}}</h2>
+    <div class="button-group">
+        <a class="logout-button" href="{% url 'logout' %}"><span>LOGOUT</span></a>
+    </div>
+{% else %}
+    <div class="button-group">
+        <a class="login-button" href="{% url 'login' %}"><span>LOGIN</span></a>
+        <a class="register-button" href="{% url 'register' %}"><span>REGISTER</span></a>
+    </div>
+{% endif %}
+
+
+
+<body bgcolor="gray">
+
+    <div class="inline">
+        <a class="logout-button" href="{% url 'home' %}"><span>HOME</span></a>
+        <a class="films-button" href="{% url 'films' %}"><span>FILMS</span></a>
+        <a class="planets-button" href="{% url 'planets' %}"><span>PLANETS</span></a>
+        {% if user.is_authenticated %}
+            <a class="favourites-button" href="{% url 'favourites' %}"><span>FAVOURITES</span></a>
+        {% endif %}
+    </div>
+    
+    <form action="/planets/search/" method="post">
+        <div class="inline">
+            {% csrf_token %}
+            <label for="searchQuery">Search: </label>
+            <input type="text" name="searchQuery">
+            <input type="submit" value="SEARCH" name="search">
+        </div>
+    </form>
+    
+    <h1>{{planet.name}}</h1><br><br>
+    
+    {% if not favourite %}
+    <div class="favourites-button">
+        <form id = "{{planet.name}}" action="/favourites-add/" method="post">
+        
+            {% csrf_token %}
+            <input type="hidden" name="resource_name" value="{{planet.name}}">
+            <input type="hidden" name="resource_url" value="{{planet.url}}">
+            <input type="hidden" name="resource_type" value="{{type}}">
+
+            <a href="#" onclick="document.forms['{{planet.name}}'].submit();" >Add to Favourite</a> 
+        </form>
+    </div>
+    {% endif %}
+    
+    <br><br>
+    
+    {% for message in messages %}
+        <h3> {{message}} </h3>
+    {% endfor %}
+    
+    <br><br><br>
+    
+    <div style="color:#FF00FF;">Name:</div><br><br>
+    <div>{{planet.name}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Diameter:</div><br><br>
+    <div>{{planet.diameter}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Rotation Period:</div><br>
+    <div>{{planet.rotation_period}}</div><br><br>
+    
+    <div style="color:#FF00FF;">Orbital Period:</div><br><br>
+    <div>{{planet.orbital_period}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Gravity:</div><br><br>
+    <div>{{planet.gravity}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Population:</div><br><br>
+    <div>{{planet.population}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Climate:</div><br><br>
+    <div>{{planet.climate}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Terrain:</div><br><br>
+    <div>{{planet.terrain}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Surface Water:</div><br><br>
+    <div>{{planet.surface_water}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">Residents:</div><br><br>
+    <ul>
+    {% for resident in planet.residents %}
+        <li>{{resident}}</li>
+    {% endfor %}
+    </ul><br><br><br>
+    
+    <div style="color:#FF00FF;">Films:</div><br><br>
+    <ul>
+    {% for film in planet.films %}
+        <li>{{film}}</li>
+    {% endfor %}
+    </ul><br><br><br>
+    
+    <div style="color:#FF00FF;">API URL:</div><br><br>
+    <div>{{planet.url}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">create date:</div><br><br>
+    <div>{{planet.created}}</div><br><br><br>
+    
+    <div style="color:#FF00FF;">edited date:</div><br><br>
+    <div>{{planet.edited}}</div><br><br><br>
+    
+    
+</body>
+    
+    
+</html>
+

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta httpequiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <title>Add favourites</title>
+</head>
+
+{% if user.is_authenticated %}
+    <h2>{{user.username}}</h2>
+    <div class="button-group">
+        <a class="logout-button" href="{% url 'logout' %}"><span>LOGOUT</span></a>
+    </div>
+{% else %}
+    <div class="button-group">
+        <a class="login-button" href="{% url 'login' %}"><span>LOGIN</span></a>
+        <a class="register-button" href="{% url 'register' %}"><span>REGISTER</span></a>
+    </div>
+{% endif %}
+
+<body bgcolor="gray">
+
+    <h1>Add to Favourites</h1>
+    
+    <div class="inline">
+        <a class="logout-button" href="{% url 'home' %}"><span>HOME</span></a>
+        <a class="planets-button" href="{% url 'planets' %}"><span>PLANETS</span></a>
+        <a class="films-button" href="{% url 'films' %}"><span>FILMS</span></a>
+        <a class="favourites-button" href="{% url 'favourites' %}"><span>FAVOURITES</span></a>
+    </div>
+    <br>
+    <form class="favourites-button" action="/favourites-adding/" method="post">
+    
+        {% csrf_token %}
+        <span>Please enter Custom Name below:</span><br>
+        <input type="hidden" name="resource_name" value="{{favourite.resource_name}}">
+        <input type="hidden" name="resource_type" value="{{favourite.resource_type}}">
+        <input type="hidden" name="resource_url" value="{{favourite.resource_url}}">
+        <input type="text" name="name" placeholder="{{favourite.resource_name}}">
+        <br>          
+        <br>
+        <input class="films-button" type="Submit" value="ADD">      
+    </form>   
+    <br>
+    <br>  
+    {% for message in messages %}
+        <h3> {{message}} </h3>
+    {% endfor %}
+</body>
+    
+    
+</html>
+
